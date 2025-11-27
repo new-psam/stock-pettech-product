@@ -10,7 +10,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get()
+  @Get('/docker-test')
   getHelloDocker(): string{
     return 'Hello Docker! Marcelino'
   }
