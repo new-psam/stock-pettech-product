@@ -1,0 +1,36 @@
+versio: '3.8'
+
+services: 
+  app:
+    # usa imagem do dockerHub
+    #build:
+      #context:  .
+    image: papasam/pettech-stock-mps:latest
+    container_name: pettech-stock-app
+    # carrega variáveis do arquivo .env
+    env_file:
+      - ./ .env
+    ports:
+      - "3010:3010"
+    depends_on:
+      - mongo
+    networks:
+      - mynetwork
+
+  mongo:
+      image: mongo:latest
+      container_name: pettech-stock-db
+      ports:
+        - "27017:27017"
+      volumes:
+        - mongo_data:/data/db
+      networks:
+        - mynetwork
+      restart: always
+  
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  mongo_data:
